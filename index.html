@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>말씀의 서고 · 클로드로 지은 사역 웹</title>
+<meta name="description" content="설교·지식·다음 세대·북클럽·교구 목양 — 지금까지 지어 배포한 사역 웹을 한 자리에서.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%9A%3C/text%3E%3C/svg%3E">
+<style>
+  :root{
+    --paper:#faf7f0; --paper2:#f3ede1; --card:#fffdf8;
+    --ink:#2b2620; --ink2:#5c5348; --ink3:#8a7f70;
+    --line:#e7dfd0; --line2:#ddd2be;
+    --gold:#b7791f;
+    --c-sermon:#9b3b47; --c-seeker:#2f6b4f; --c-next:#bd7d18;
+    --c-book:#4a5899; --c-parish:#a3475b;
+    --shadow:0 1px 2px rgba(60,45,25,.05), 0 8px 24px -12px rgba(60,45,25,.18);
+    --shadow-h:0 2px 4px rgba(60,45,25,.08), 0 18px 40px -16px rgba(60,45,25,.32);
+    --serif:"Nanum Myeongjo","Apple SD Gothic Neo",Georgia,"Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",Segoe UI,Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper:#17140f; --paper2:#1f1b15; --card:#221d17;
+      --ink:#f0e9dc; --ink2:#c3b9a7; --ink3:#8f8474;
+      --line:#332c22; --line2:#40382b;
+      --gold:#e0a844;
+      --c-sermon:#d1697a; --c-seeker:#66b088; --c-next:#e2a63f;
+      --c-book:#8593d6; --c-parish:#d47f96;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px -14px rgba(0,0,0,.6);
+      --shadow-h:0 2px 6px rgba(0,0,0,.4), 0 22px 48px -18px rgba(0,0,0,.75);
+    }
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--sans); background:var(--paper); color:var(--ink);
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  a{color:inherit;text-decoration:none}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative; overflow:hidden;
+    padding:clamp(3.5rem,9vw,6.5rem) 1.5rem clamp(2.5rem,6vw,4rem);
+    text-align:center;
+    background:
+      radial-gradient(120% 80% at 50% -10%, var(--paper2) 0%, var(--paper) 60%);
+    border-bottom:1px solid var(--line);
+  }
+  .hero .emblem{
+    font-size:clamp(2.6rem,7vw,3.6rem); line-height:1;
+    filter:drop-shadow(0 6px 14px rgba(120,90,30,.22));
+  }
+  .hero h1{
+    font-family:var(--serif); font-weight:800;
+    font-size:clamp(2rem,6vw,3.4rem); letter-spacing:-.01em;
+    margin:.7rem 0 .4rem; color:var(--ink);
+  }
+  .hero .tagline{
+    color:var(--ink2); font-size:clamp(.98rem,2.4vw,1.18rem);
+    max-width:34rem; margin:0 auto;
+  }
+  .hero .rule{
+    width:64px; height:3px; margin:1.5rem auto 0; border-radius:3px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  }
+  .hero .meta{
+    margin-top:1.1rem; color:var(--ink3); font-size:.82rem;
+    letter-spacing:.04em; text-transform:uppercase;
+  }
+
+  /* ---------- Nav pills ---------- */
+  .nav{
+    position:sticky; top:0; z-index:20;
+    display:flex; gap:.5rem; flex-wrap:wrap; justify-content:center;
+    padding:.85rem 1rem; background:color-mix(in srgb,var(--paper) 88%,transparent);
+    backdrop-filter:saturate(1.4) blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav a{
+    font-size:.86rem; font-weight:600; color:var(--ink2);
+    padding:.4rem .85rem; border-radius:999px; border:1px solid var(--line2);
+    background:var(--card); transition:.18s;
+  }
+  .nav a:hover{color:var(--ink); border-color:var(--gold); transform:translateY(-1px)}
+
+  /* ---------- Layout ---------- */
+  main{max-width:1080px; margin:0 auto; padding:clamp(2rem,5vw,3.5rem) 1.25rem 1rem}
+  section{margin-bottom:clamp(2.5rem,6vw,4rem); scroll-margin-top:4.5rem}
+  .sec-head{display:flex; align-items:baseline; gap:.75rem; margin-bottom:1.3rem}
+  .sec-head .idx{
+    font-family:var(--serif); font-weight:800; font-size:1.15rem;
+    color:var(--accent); opacity:.85;
+  }
+  .sec-head h2{
+    font-family:var(--serif); font-weight:700; font-size:clamp(1.25rem,3.4vw,1.6rem);
+    color:var(--ink); letter-spacing:-.01em;
+  }
+  .sec-head .count{
+    margin-left:auto; font-size:.78rem; font-weight:600; color:var(--ink3);
+    padding:.2rem .6rem; border:1px solid var(--line2); border-radius:999px;
+    white-space:nowrap;
+  }
+  .sec-head::after{content:none}
+  .accent-rule{height:2px; background:linear-gradient(90deg,var(--accent),transparent);
+    opacity:.35; margin:-.6rem 0 1.3rem; border-radius:2px}
+
+  .grid{
+    display:grid; gap:1rem;
+    grid-template-columns:repeat(auto-fill,minmax(268px,1fr));
+  }
+
+  /* ---------- Card ---------- */
+  .card{
+    position:relative; display:flex; flex-direction:column;
+    background:var(--card); border:1px solid var(--line);
+    border-radius:16px; padding:1.15rem 1.2rem 1.1rem;
+    box-shadow:var(--shadow); transition:.2s cubic-bezier(.2,.7,.3,1);
+    overflow:hidden; min-height:132px;
+  }
+  .card::before{
+    content:""; position:absolute; left:0; top:0; bottom:0; width:4px;
+    background:var(--accent); opacity:.9;
+  }
+  .card:hover{transform:translateY(-4px); box-shadow:var(--shadow-h); border-color:var(--line2)}
+  .card:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+  .card .top{display:flex; align-items:flex-start; gap:.5rem}
+  .card h3{
+    font-family:var(--serif); font-weight:700; font-size:1.06rem;
+    line-height:1.35; color:var(--ink); letter-spacing:-.01em;
+  }
+  .card .badge{
+    margin-left:auto; flex:none; font-size:.7rem; font-weight:700;
+    color:var(--accent); background:color-mix(in srgb,var(--accent) 14%,transparent);
+    padding:.16rem .5rem; border-radius:999px; white-space:nowrap;
+  }
+  .card p{color:var(--ink2); font-size:.88rem; line-height:1.55; margin-top:.45rem}
+  .card .go{
+    margin-top:auto; padding-top:.7rem; display:flex; align-items:center; gap:.35rem;
+    color:var(--accent); font-size:.8rem; font-weight:600;
+  }
+  .card .go .arrow{transition:transform .2s}
+  .card:hover .go .arrow{transform:translateX(3px)}
+  .card .host{color:var(--ink3); font-weight:500; font-size:.74rem; margin-left:auto}
+  .lock{font-size:.72rem}
+
+  /* ---------- Footer ---------- */
+  footer{
+    text-align:center; padding:2.5rem 1.25rem 3.5rem; color:var(--ink3);
+    font-size:.82rem; border-top:1px solid var(--line); margin-top:1rem;
+  }
+  footer .big{font-family:var(--serif); color:var(--ink2); font-size:.95rem; margin-bottom:.4rem}
+
+  @media (max-width:520px){
+    .grid{grid-template-columns:1fr}
+    .nav{gap:.4rem; padding:.7rem .6rem}
+    .nav a{font-size:.8rem; padding:.35rem .7rem}
+  }
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="emblem">📚</div>
+    <h1>말씀의 서고</h1>
+    <p class="tagline">설교와 지식, 다음 세대와 교구 목양 — 지금까지 지어 배포한 사역의 웹을 한 자리에서 엽니다.</p>
+    <div class="rule"></div>
+    <div class="meta">공개 결과물 18편 · 한 관문</div>
+  </header>
+
+  <nav class="nav">
+    <a href="#sermon">강해와 설교</a>
+    <a href="#seeker">구도자를 위한 진입</a>
+    <a href="#next">다음 세대</a>
+    <a href="#book">함께 읽기 · 북클럽</a>
+    <a href="#parish">교구 · 목양</a>
+  </nav>
+
+  <main>
+
+    <!-- Ⅰ. 강해와 설교 -->
+    <section id="sermon" style="--accent:var(--c-sermon)">
+      <div class="sec-head"><span class="idx">Ⅰ</span><h2>강해와 설교</h2><span class="count">9편</span></div>
+      <div class="accent-rule"></div>
+      <div class="grid">
+
+        <a class="card" href="https://seungmok43.github.io/psalm-morning-sermons/" target="_blank" rel="noopener">
+          <div class="top"><h3>설교 전집 아카이브 허브</h3><span class="badge">282편</span></div>
+          <p>새벽·주일 설교 전편을 시리즈별로 묶은 대형 아카이브의 관문.</p>
+          <div class="go"><span>들어가기</span><span class="arrow">→</span><span class="host">github.io</span></div>
+        </a>
+
+        <a class="card" href="https://seungmok43.github.io/psalm-morning-sermons/psalm-series.html" target="_blank" rel="noopener">
+          <div class="top"><h3>감정에 이름을</h3><span class="badge">시편 150편</span></div>
+          <p>시편으로 여는 새벽, 마음의 결을 말씀 앞에 정직하게 놓는 묵상.</p>
+          <div class="go"><span>들어가기</span><span class="arrow">→</span><span class="host">github.io</span></div>
+        </a>
+
+        <a class="card" href="https://seungmok43.github.io/psalm-morning-sermons/ecclesiastes-series.html" target="_blank" rel="noopener">
+          <div class="top"><h3>꼰대의 가르침</h3><span class="badge">전도서 35편</span></div>
+          <p>해 아래 모든 수고를 묻는 전도서, 헛됨을 지나 경외에 이르는 길.</p>
+          <div class="go"><span>들어가기</span><span class="arrow">→</span><span class="host">github.io</span></div>
+        </a>
+
+        <a class="card" href="https://seungmok43.github.io/psalm-morning-sermons/revelation-series.html" target="_blank" rel="noopener">
+          <div class="top"><h3>이기는 자에게</h3><span class="badge">계시록 38편</span></div>
+          <p>요한계시록으로 보는 마지막과 승리, 오늘을 견디는 소망.</p>
+          <div class="go"><span>들어가기</span><span class="arrow">→</span><span class="host">github.io</span></div>
+        </a>
+
+        <a class="card" href="https://seungmok43.github.io/psalm-morning-sermons/sunday-sermons.html" target="_blank" rel="noopener">
+          <div class="top"><h3>주일설교 시리즈 전집</h3><span class="badge">59편</span></div>
+          <p>주일 강단에서 선포된 말씀을 시리즈로 모은 전집.</p>
+          <div class="go"><span>들어가기</span><span class="arrow">→</span><span class="host">github.io</span></div>
+        </a>
+
+        <a class="card" href="https://seungmok43.github.io/lords-prayer-7c1f7c1f/" target="_blank" rel="noopener">
+          <div class="top"><h3>주기도문 강해</h3><span class="badge">5부작</span></div>
+          <p>주님이 가르치신 기도를 한 구절씩 여는 다섯 편의 강해 설교집.</p>
+          <div class="go"><span>들어가기</span><span class="arrow">→</span><span class="host">github.io</span></div>
+        </a>
+
+        <a class="card" href="http://wintheday.kr/" target="_blank" rel="noopener">
+          <div class="top"><h3>Win the Day</h3><span class="badge">전용 도메인</span></div>
+          <p>아침을 말씀으로 이기라 — 하루를 여는 짧은 묵상 사이트.</p>
+          <div class="go"><span>들어가기</span><span class="arrow">→</span><span class="host">wintheday.kr</span></div>
+        </a>
+
+        <a class="card" href="https://seungmok43.github.io/mom-theology-dossier/" target="_blank" rel="noopener">
+          <div class="top"><h3>몸의 신학 대사전</h3><span class="badge">母자산</span></div>
+          <p>기독교 세계관으로 읽는 '몸' — 설교의 뿌리가 되는 지식 대사전.</p>
+          <div class="go"><span>들어가기</span><span class="arrow">→</span><span class="host">github.io</span></div>
+        </a>
+
+        <a class="card" href="https://seungmok43.github.io/mom-sermon-series/" target="_blank" rel="noopener">
+          <div class="top"><h3>몸으로 드리는 예배</h3><span class="badge">12주 강해</span></div>
+          <p>몸의 신학을 강단으로 옮긴 열두 주의 강해 시리즈.</p>
+          <div class="go"><span>들어가기</span><span class="arrow">→</span><span class="host">github.io</span></div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Ⅱ. 구도자를 위한 진입 -->
+    <section id="seeker" style="--accent:var(--c-seeker)">
+      <div class="sec-head"><span class="idx">Ⅱ</span><h2>구도자를 위한 진입</h2><span class="count">2편</span></div>
+      <div class="accent-rule"></div>
+      <div class="grid">
+
+        <a class="card" href="https://seungmok43.github.io/gospel-for-life/" target="_blank" rel="noopener">
+          <div class="top"><h3>삶의 질문에 답하는 기독교</h3><span class="badge">에세이 9편</span></div>
+          <p>믿음 밖의 물음에서 복음으로 건너가는 아홉 편의 브릿지 에세이.</p>
+          <div class="go"><span>들어가기</span><span class="arrow">→</span><span class="host">github.io</span></div>
+        </a>
+
+        <a class="card" href="https://seungmok43.github.io/denominations-d6777b9e/" target="_blank" rel="noopener">
+          <div class="top"><h3>기독교 8개 교단 비교</h3><span class="badge">역사+교리</span></div>
+          <p>한 눈에 보는 여덟 교단의 역사와 교리, 차이와 공통점.</p>
+          <div class="go"><span>들어가기</span><span class="arrow">→</span><span class="host">github.io</span></div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Ⅲ. 다음 세대 -->
+    <section id="next" style="--accent:var(--c-next)">
+      <div class="sec-head"><span class="idx">Ⅲ</span><h2>다음 세대</h2><span class="count">2편</span></div>
+      <div class="accent-rule"></div>
+      <div class="grid">
+
+        <a class="card" href="https://seungmok43.github.io/narnia-worldview/" target="_blank" rel="noopener">
+          <div class="top"><h3>나니아로 심는 세계관</h3><span class="badge">학부모 안내</span></div>
+          <p>이야기로 자녀의 마음에 기독교 세계관을 심는 부모 안내서.</p>
+          <div class="go"><span>들어가기</span><span class="arrow">→</span><span class="host">github.io</span></div>
+        </a>
+
+        <a class="card" href="https://seungmok43.github.io/kkumkkudap-3cc771e6/" target="_blank" rel="noopener">
+          <div class="top"><h3>꿈꾸는 교리문답 [꿈·꾸·답]</h3><span class="badge">20일</span></div>
+          <p>잠자리에서 스무 밤, 아이와 함께 여는 교리문답 이야기.</p>
+          <div class="go"><span>들어가기</span><span class="arrow">→</span><span class="host">github.io</span></div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Ⅳ. 함께 읽기 · 북클럽 -->
+    <section id="book" style="--accent:var(--c-book)">
+      <div class="sec-head"><span class="idx">Ⅳ</span><h2>함께 읽기 · 북클럽</h2><span class="count">2편</span></div>
+      <div class="accent-rule"></div>
+      <div class="grid">
+
+        <a class="card" href="https://seungmok43.github.io/bookclub-b0895c60/" target="_blank" rel="noopener">
+          <div class="top"><h3>BooKLove · 책으로 삶을 읽다</h3><span class="badge">북클럽 허브</span></div>
+          <p>두 모임의 책과 나눔을 담은 북클럽 홈, 회차별 정리로 이어지는 관문.</p>
+          <div class="go"><span>들어가기</span><span class="arrow">→</span><span class="host">github.io</span></div>
+        </a>
+
+        <a class="card" href="https://seungmok43.github.io/mom-bookclub-35f31688/" target="_blank" rel="noopener">
+          <div class="top"><h3>그리스도인의 몸 사용법</h3><span class="badge">서문~4장</span></div>
+          <p>한 권을 함께 읽으며 나눈 몸 사용법 북클럽 정리본.</p>
+          <div class="go"><span>들어가기</span><span class="arrow">→</span><span class="host">github.io</span></div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Ⅴ. 교구 · 목양 -->
+    <section id="parish" style="--accent:var(--c-parish)">
+      <div class="sec-head"><span class="idx">Ⅴ</span><h2>교구 · 목양</h2><span class="count">4편</span></div>
+      <div class="accent-rule"></div>
+      <div class="grid">
+
+        <a class="card" href="https://seungmok43.github.io/curriculum-map-4db49506/curriculum.html" target="_blank" rel="noopener">
+          <div class="top"><h3>삶이 있는 신앙 공과</h3><span class="badge">528과</span></div>
+          <p>4부서 3년 전 과정 지도 — 과마다 전문 리더와 학생용·교사용 뷰.</p>
+          <div class="go"><span>들어가기</span><span class="arrow">→</span><span class="host">github.io</span></div>
+        </a>
+
+        <a class="card" href="https://seungmok43.github.io/lecture-archive-c5379fe0/" target="_blank" rel="noopener">
+          <div class="top"><h3>기록서재 · 강의 아카이브</h3><span class="badge">강의노트 15편</span></div>
+          <p>세계관·기도학교 등 강의 노트를 갈무리한 배움의 서재.</p>
+          <div class="go"><span>들어가기</span><span class="arrow">→</span><span class="host">github.io</span></div>
+        </a>
+
+        <a class="card" href="https://seungmok43.github.io/gongwa34-yangyuk-7a17fa62/" target="_blank" rel="noopener">
+          <div class="top"><h3>34교구 양육현황 <span class="lock">🔒</span></h3><span class="badge">보호됨</span></div>
+          <p>필수양육·큐티·파노라마 이수 현황 — 접근코드로 열리는 목양 대시보드.</p>
+          <div class="go"><span>들어가기</span><span class="arrow">→</span><span class="host">접근코드 필요</span></div>
+        </a>
+
+        <a class="card" href="https://seungmok43.github.io/sarangbang-intro/" target="_blank" rel="noopener">
+          <div class="top"><h3>수영로교회 사랑방</h3><span class="badge">소개</span></div>
+          <p>사랑방을 처음 만나는 이를 위한 소개 페이지.</p>
+          <div class="go"><span>들어가기</span><span class="arrow">→</span><span class="host">github.io</span></div>
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="big">📖 “주의 말씀은 내 발에 등이요 내 길에 빛이니이다”</div>
+    클로드로 지어 배포한 사역 웹 18편 · 한 관문에서
+  </footer>
+
+</body>
+</html>
